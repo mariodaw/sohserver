@@ -15,7 +15,7 @@ CREATE TABLE `usuario` (
   `id_tipoUsuario` bigint NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-CREATE TABLE `tipoUsuario` (
+CREATE TABLE `tipousuario` (
   `id` bigint NOT NULL,
   `nombre` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -45,7 +45,7 @@ CREATE TABLE `evento` (
   `id_tipoEvento` bigint NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-CREATE TABLE `tipoEvento` (
+CREATE TABLE `tipoevento` (
   `id` bigint NOT NULL,
   `nombre` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -67,7 +67,7 @@ ALTER TABLE `usuario`
   ADD PRIMARY KEY (`id`);
 
 -- Indices de la tabla `tipoUsuario`
-ALTER TABLE `tipoUsuario`
+ALTER TABLE `tipousuario`
   ADD PRIMARY KEY (`id`);
 
 -- Indices de la tabla `pertenece`
