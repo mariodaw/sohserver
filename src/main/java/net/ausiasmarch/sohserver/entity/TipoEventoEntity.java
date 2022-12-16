@@ -16,20 +16,17 @@ import javax.persistence.PreRemove;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "tipoEvento")
+@Table(name = "tipoevento")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-
-
 public class TipoEventoEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
-
     private Long id;
+
     private String nombre;
 
-    @OneToMany(mappedBy = "tipoEvento", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "tipoevento", fetch = FetchType.LAZY)
     private final List<EventoEntity> eventos;
 
     public TipoEventoEntity() {
