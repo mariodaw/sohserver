@@ -12,7 +12,7 @@ CREATE TABLE `usuario` (
   `cuenta` varchar(250) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `campeon` varchar(250) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `skin` varchar(250) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `id_tipoUsuario` bigint NOT NULL
+  `id_tipousuario` bigint NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `tipousuario` (
@@ -42,7 +42,7 @@ CREATE TABLE `evento` (
   `nombre` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `fini` datetime NOT NULL,
   `ffin` datetime NOT NULL,
-  `id_tipoEvento` bigint NOT NULL
+  `id_tipoevento` bigint NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE `tipoevento` (
@@ -60,7 +60,12 @@ CREATE TABLE `premio` (
 
 INSERT INTO `evento` (`id`, `nombre`, `fini`, `ffin`, `id_tipoEvento`) VALUES ('1', 'Jornada 8', '2022-12-25 05:05:05', '2022-12-25 05:06:05', '1')
 
-INSERT INTO `tipoevento` (`id`, `nombre`) VALUES ('1', 'Jornada Torneo');
+INSERT INTO `tipoevento` (`id`, `nombre`) VALUES ('1', `Jornada Torneo`);
+
+INSERT INTO `usuario` (`id`, `username`, `password`, `id_tipousuario`) VALUES ('1', 'mario', 'alv', '1');
+
+INSERT INTO `tipousuario` (`id`, `nombre`) VALUES ('1', 'admin');
+
 
 -- indice de la tabla usuario
 ALTER TABLE `usuario`
@@ -93,6 +98,7 @@ ALTER TABLE `evento`
   -- indice de la tabla premio
 ALTER TABLE `premio`
   ADD PRIMARY KEY (`id`);
+
 
     -- AUTO_INCREMENT de la tabla `premio`
 ALTER TABLE `premio`

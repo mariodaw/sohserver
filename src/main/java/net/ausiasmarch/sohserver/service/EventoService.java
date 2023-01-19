@@ -22,7 +22,6 @@ public class EventoService {
     TipoEventoService oTipoEventoService;
     @Autowired
     TipoEventoRepository oTipoEventoRepository;
-
     @Autowired
     EventoRepository oEventoRepository;
 
