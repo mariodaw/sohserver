@@ -46,10 +46,28 @@ public class TipoUsuarioService {
     public List<TipoUsuarioEntity> all() {
         return oTipoUsuarioRepository.findAll();
     }
+    public Long count() {
+        return oTipoUsuarioRepository.count();  
+    }
     public Long update(TipoUsuarioEntity oTipoUsuarioEntity) {
        // oAuthService.OnlyAdmins();
         validate(oTipoUsuarioEntity.getId());
         validate(oTipoUsuarioEntity);
         return oTipoUsuarioRepository.save(oTipoUsuarioEntity).getId();
+    }
+    public Long generate() {
+        oAuthService.OnlyAdmins();
+        List<TipoUsuarioEntity> usersTypeList = generateUsersType();
+
+        for (int i = usersTypeList.size() - 1; i >= 0; i--) {
+            oTipoUsuarioRepository.save(usersTypeList.get(i));
+        }
+        return oTipoUsuarioRepository.count();
+    }
+
+   public Page<TipoUsuarioEntity> getPage(Pageable oPageable, String strFilter) {
+        //oAuthService.OnlyAdmins();
+        ValidationHelper.validateRPP(oPageable.getPageSize());
+        return oTipoUsuarioRepository.findAll(oPageable);
     }
 }

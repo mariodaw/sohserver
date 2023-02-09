@@ -35,6 +35,10 @@ public class UsuarioEntity {
     private Date fnac;
     private String campeon;
     private String skin;
+ 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_equipo")
+    private EquipoEntity equipo; 
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_tipousuario")
@@ -71,6 +75,14 @@ public class UsuarioEntity {
     public void setTipousuario(TipoUsuarioEntity tipousuario) {
         this.tipousuario = tipousuario;
     }
+
+     public EquipoEntity getEquipo() {
+        return equipo;  
+    }
+
+    public void setEquipo(EquipoEntity equipo) {
+        this.equipo = equipo;
+    } 
 
     public String getCorreo() {
         return correo;

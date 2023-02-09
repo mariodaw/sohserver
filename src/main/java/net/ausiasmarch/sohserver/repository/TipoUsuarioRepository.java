@@ -7,4 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface TipoUsuarioRepository extends JpaRepository<TipoUsuarioEntity, Long> {
 
+    public Page<TipoUsuarioEntity> findByNombreIgnoreCaseContaining(String strFilter, Pageable oPageable);
+
 }

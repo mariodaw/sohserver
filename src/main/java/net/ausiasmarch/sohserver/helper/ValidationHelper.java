@@ -2,6 +2,9 @@ package net.ausiasmarch.sohserver.helper;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.temporal.Temporal;
+import java.util.Date;
+
 import net.ausiasmarch.sohserver.exception.ValidationException;
 
 public class ValidationHelper {
@@ -88,10 +91,11 @@ public class ValidationHelper {
         }
     }
 
-    public static void validateDate(LocalDateTime oDate, LocalDateTime oDateStart, LocalDateTime oDateEnd,
+
+    public static void validateDate(Date date, LocalDateTime oDateStart, LocalDateTime oDateEnd,
             String error) {
-        Long lDur1 = Duration.between(oDateStart, oDate).toMillis();
-        Long lDur2 = Duration.between(oDate, oDateEnd).toMillis();
+        Long lDur1 = Duration.between(oDateStart, (Temporal) date).toMillis();
+        Long lDur2 = Duration.between((Temporal) date, oDateEnd).toMillis();
         if (lDur1 > 0L && lDur2 > 0L) {
         } else {
             throw new ValidationException("error de validación: " + error);

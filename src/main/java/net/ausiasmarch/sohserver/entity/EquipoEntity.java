@@ -18,24 +18,22 @@ import javax.persistence.PreRemove;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "tipousuario")
+@Table(name = "equipo")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class TipoUsuarioEntity {
+public class EquipoEntity {
     @Id
-    //@GeneratedValue(strategy = GenerationType.IDENTITY) 
     private Long id;
 
     private String nombre;
 
-    @OneToMany(mappedBy = "tipousuario", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "equipo", fetch = FetchType.LAZY)
     private final List<UsuarioEntity> usuarios;
 
-    
-    public TipoUsuarioEntity() {
-        this.usuarios = new ArrayList<>();
+    public EquipoEntity(){
+        this.usuarios= new ArrayList<>();
     }
 
-    public TipoUsuarioEntity(Long id) {
+    public EquipoEntity(Long id){
         this.usuarios = new ArrayList<>();
         this.id = id;
     }
@@ -43,14 +41,19 @@ public class TipoUsuarioEntity {
     public Long getId() {
         return id;
     }
+
     public void setId(Long id) {
         this.id = id;
     }
+
     public String getNombre() {
         return nombre;
     }
+
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
+
 
 }

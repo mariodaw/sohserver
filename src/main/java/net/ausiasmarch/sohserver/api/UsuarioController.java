@@ -38,12 +38,12 @@ public class UsuarioController {
         return new ResponseEntity<Long>(oUsuarioService.count(), HttpStatus.OK);
     }
 
-    @PostMapping("/")
+    @PostMapping()
     public ResponseEntity<Long> create(@RequestBody UsuarioEntity oNewUsuarioEntity) {
         return new ResponseEntity<Long>(oUsuarioService.create(oNewUsuarioEntity), HttpStatus.OK);
     }
 
-    @PutMapping("/")
+    @PutMapping("")
     public ResponseEntity<Long> update(@RequestBody UsuarioEntity oNewUsuarioEntity) {
         return new ResponseEntity<Long>(oUsuarioService.update(oNewUsuarioEntity), HttpStatus.OK);
     }
@@ -57,8 +57,9 @@ public class UsuarioController {
     public ResponseEntity<Page<UsuarioEntity>> getPage(
             @ParameterObject @PageableDefault(page = 0, size = 10, direction = Sort.Direction.DESC) Pageable oPageable,
             @RequestParam(name = "filter", required = false) String strFilter,
-            @RequestParam(name = "tipousuario", required = false) Long lTipoUsuario) {
-        return new ResponseEntity<Page<UsuarioEntity>>(oUsuarioService.getPage(oPageable, strFilter, lTipoUsuario), HttpStatus.OK);
+            @RequestParam(name = "tipousuario", required = false) Long lTipoUsuario,
+            @RequestParam(name = "equipo", required = false) Long lEquipo) {
+        return new ResponseEntity<Page<UsuarioEntity>>(oUsuarioService.getPage(oPageable, strFilter, lTipoUsuario, lEquipo), HttpStatus.OK);
     }
 
 

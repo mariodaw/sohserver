@@ -12,6 +12,7 @@ import net.ausiasmarch.sohserver.exception.ResourceNotModifiedException;
 import net.ausiasmarch.sohserver.helper.RandomHelper;
 import net.ausiasmarch.sohserver.helper.TipoUsuarioHelper;
 import net.ausiasmarch.sohserver.helper.ValidationHelper;
+import net.ausiasmarch.sohserver.repository.EquipoRepository;
 import net.ausiasmarch.sohserver.repository.TipoUsuarioRepository;
 import net.ausiasmarch.sohserver.repository.UsuarioRepository;  
 import org.springframework.data.domain.Page;
@@ -24,8 +25,14 @@ public class UsuarioService {
     @Autowired
     TipoUsuarioService oTipoUsuarioService;
 
+     @Autowired
+    EquipoService oEquipoService;
+ 
     @Autowired
     TipoUsuarioRepository oTipoUsuarioRepository;
+
+    @Autowired
+    EquipoRepository oEquipoRepository;
 
     @Autowired
     UsuarioRepository oUsuarioRepository;
@@ -55,7 +62,7 @@ public class UsuarioService {
      }
      
     public UsuarioEntity get(Long id) {
-       // oAuthService.OnlyAdminsOrOwnUsersData(id);
+       oAuthService.OnlyAdminsOrOwnUsersData(id);
        try {
            return oUsuarioRepository.findById(id).get();
        } catch (Exception ex) {
@@ -81,12 +88,14 @@ public class UsuarioService {
         //oAuthService.OnlyAdminsOrOwnUsersData(oUsuarioEntity.getId());
         validate(oUsuarioEntity);
         oTipoUsuarioService.validate(oUsuarioEntity.getTipousuario().getId());
+        oEquipoService.validate(oUsuarioEntity.getEquipo().getId());
         /* if (oAuthService.isAdmin()) {
             return update4Admins(oUsuarioEntity).getId();
         } else { */
             return update4Users(oUsuarioEntity).getId();
         //}
     }
+
     @Transactional
     private UsuarioEntity update4Users(UsuarioEntity oUpdatedUsuarioEntity) {
         UsuarioEntity oUsuarioEntity = oUsuarioRepository.findById(oUpdatedUsuarioEntity.getId()).get();
@@ -98,6 +107,8 @@ public class UsuarioService {
         oUsuarioEntity.setFnac(oUpdatedUsuarioEntity.getFnac());
         oUsuarioEntity.setCampeon(oUpdatedUsuarioEntity.getCampeon());
         oUsuarioEntity.setSkin(oUpdatedUsuarioEntity.getSkin());
+        
+        oUsuarioEntity.setEquipo(oUpdatedUsuarioEntity.getEquipo());
         oUsuarioEntity.setTipousuario(oUpdatedUsuarioEntity.getTipousuario());
         return oUsuarioRepository.save(oUsuarioEntity);
     }
@@ -148,26 +159,26 @@ public class UsuarioService {
         } else {
             oUserEntity.setTipousuario(oTipoUsuarioRepository.getById(TipoUsuarioHelper.ADMIN));
         }
+        oUserEntity.setEquipo(oEquipoService.getOneRandom());
         return oUserEntity;
     } 
 
-    public Page<UsuarioEntity> getPage(Pageable oPageable, String strFilter, Long lTipoUsuario) {
+    public Page<UsuarioEntity> getPage(Pageable oPageable, String strFilter, Long lTipoUsuario, Long lEquipo) {
         //oAuthService.OnlyAdmins();
         ValidationHelper.validateRPP(oPageable.getPageSize());
-        Page<UsuarioEntity> oPage = null;
-        if (lTipoUsuario == null) {
-            if (strFilter == null || strFilter.isEmpty() || strFilter.trim().isEmpty()) {
-                oPage = oUsuarioRepository.findAll(oPageable);
+        if(lTipoUsuario == null){
+            if(lEquipo == null){
+                return oUsuarioRepository.findAll(oPageable);
             } else {
-                oPage = oUsuarioRepository.findByNombre(strFilter, oPageable);
+                return oUsuarioRepository.findByEquipoId(lEquipo, oPageable);
             }
         } else {
-            if (strFilter == null || strFilter.isEmpty() || strFilter.trim().isEmpty()) {
-                oPage = oUsuarioRepository.findByTipousuarioId(lTipoUsuario, oPageable);
-            } else {
-                oPage = oUsuarioRepository.findByNombreAndTipousuarioId(strFilter, lTipoUsuario, oPageable);
+            if (lTipoUsuario != null){
+                if (lEquipo != null){
+                    return oUsuarioRepository.findByTipousuarioIdAndEquipoId(lTipoUsuario, lEquipo, oPageable);
+                }
             }
+            return oUsuarioRepository.findByTipousuarioId(lTipoUsuario, oPageable);
         }
-        return oPage;
     }
 }   
