@@ -39,12 +39,12 @@ public class EquipoController {
         return new ResponseEntity<Long>(oEquipoService.count(), HttpStatus.OK);
     }
  
-    @PostMapping("/")
+    @PostMapping("")
     public ResponseEntity<Long> create(@RequestBody EquipoEntity oNewEquipoEntity) {
         return new ResponseEntity<Long>(oEquipoService.create(oNewEquipoEntity), HttpStatus.OK);
     }
 
-    @PutMapping("/")
+    @PutMapping("")
     public ResponseEntity<Long> update(@RequestBody EquipoEntity oNewEquipoEntity) {
         return new ResponseEntity<Long>(oEquipoService.update(oNewEquipoEntity), HttpStatus.OK);
     }

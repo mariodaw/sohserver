@@ -1,3 +1,10 @@
+
+COSAS QUE HACER (SPOILER MUCHAS):
+
+Boton de vuelta en view, edit y new (BOTON NO REMOVE o BOTON GENERATES)
+Mejorar footer
+Login logout mover a la derecha
+
 <!--  <div class="container">
   <div class="row">
     <div class="col">

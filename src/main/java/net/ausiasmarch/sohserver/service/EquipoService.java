@@ -41,18 +41,18 @@ public class EquipoService {
     }
 
     public EquipoEntity get(Long id) {
-        // oAuthService.OnlyAdmins();
+         oAuthService.OnlyAdmins();
         return oEquipoRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Evento with id: " + id + " not found"));
     }
 
     public Long count() {
-        // oAuthService.OnlyAdmins();
+         oAuthService.OnlyAdmins();
         return oEquipoRepository.count();
     }
 
     public Long create(EquipoEntity oNewEquipoEntity) {
-        // oAuthService.OnlyAdmins();
+         oAuthService.OnlyAdmins();
         validate(oNewEquipoEntity);
         oNewEquipoEntity.setId(0L);
         return oEquipoRepository.save(oNewEquipoEntity).getId();
@@ -60,7 +60,7 @@ public class EquipoService {
 
     public Long update(EquipoEntity oEquipoEntity) {
         validate(oEquipoEntity.getId());
-        // oAuthService.OnlyAdminsOrOwnUsersData(oEquipoEntity.getId());
+         oAuthService.OnlyAdminsOrOwnUsersData(oEquipoEntity.getId());
         validate(oEquipoEntity);
         // oEquipoService.validate(oEquipoEntity.getEquipo().getId());
         /*
@@ -82,7 +82,7 @@ public class EquipoService {
     }
 
     public Long delete(Long id) {
-        // oAuthService.OnlyAdmins();
+         oAuthService.OnlyAdmins();
         if (oEquipoRepository.existsById(id)) {
             oEquipoRepository.deleteById(id);
             if (oEquipoRepository.existsById(id)) {
@@ -96,18 +96,17 @@ public class EquipoService {
     }
 
     public EquipoEntity generate() {
-        // oAuthService.OnlyAdmins();
+         oAuthService.OnlyAdmins();
         return oEquipoRepository.save(generateRandomUser());
     }
 
     public Long generateSome(Integer amount) {
-        // oAuthService.OnlyAdmins();
+         oAuthService.OnlyAdmins();
         List<EquipoEntity> userList = new ArrayList<>();
         for (int i = 0; i < amount; i++) {
-            EquipoEntity oEquipoEntity = generateRandomUser();
-            oEquipoRepository.save(oEquipoEntity);
-            userList.add(oEquipoEntity);
+            userList.add(generateRandomUser());
         }
+        oEquipoRepository.saveAll(userList);
         return oEquipoRepository.count();
     }
 
@@ -119,7 +118,7 @@ public class EquipoService {
     }
 
     public Page<EquipoEntity> getPage(Pageable oPageable, String strFilter) {
-        // oAuthService.OnlyAdmins();
+         oAuthService.OnlyAdmins();
         ValidationHelper.validateRPP(oPageable.getPageSize());
         Page<EquipoEntity> oPage = null;
         if (strFilter == null || strFilter.isEmpty() || strFilter.trim().isEmpty()) {

@@ -71,12 +71,12 @@ public class UsuarioService {
     }
 
     public Long count() {
-        //oAuthService.OnlyAdmins();
+        oAuthService.OnlyAdmins();
         return oUsuarioRepository.count();
     }
 
     public Long create(UsuarioEntity oNewUsuarioEntity) {
-        //oAuthService.OnlyAdmins();
+        oAuthService.OnlyAdmins();
         validate(oNewUsuarioEntity);
         oNewUsuarioEntity.setId(0L);
         oNewUsuarioEntity.setPassword(WILDCART_DEFAULT_PASSWORD);
@@ -85,7 +85,7 @@ public class UsuarioService {
 
     public Long update(UsuarioEntity oUsuarioEntity) {
         validate(oUsuarioEntity.getId());
-        //oAuthService.OnlyAdminsOrOwnUsersData(oUsuarioEntity.getId());
+        oAuthService.OnlyAdminsOrOwnUsersData(oUsuarioEntity.getId());
         validate(oUsuarioEntity);
         oTipoUsuarioService.validate(oUsuarioEntity.getTipousuario().getId());
         oEquipoService.validate(oUsuarioEntity.getEquipo().getId());
@@ -113,7 +113,7 @@ public class UsuarioService {
         return oUsuarioRepository.save(oUsuarioEntity);
     }
     public Long delete(Long id) {   
-        //oAuthService.OnlyAdmins();
+        oAuthService.OnlyAdmins();
         if (oUsuarioRepository.existsById(id)) {
             oUsuarioRepository.deleteById(id);
             if (oUsuarioRepository.existsById(id)) {
@@ -127,12 +127,12 @@ public class UsuarioService {
     }
 
     public UsuarioEntity generate() {
-        //oAuthService.OnlyAdmins();
+        oAuthService.OnlyAdmins();
         return oUsuarioRepository.save(generateRandomUser());
     }
 
     public Long generateSome(Integer amount) {
-       // oAuthService.OnlyAdmins();
+        oAuthService.OnlyAdmins();
         List<UsuarioEntity> userList = new ArrayList<>();
         for (int i = 0; i < amount; i++) {
             UsuarioEntity oUsuarioEntity = generateRandomUser();
@@ -164,7 +164,7 @@ public class UsuarioService {
     } 
 
     public Page<UsuarioEntity> getPage(Pageable oPageable, String strFilter, Long lTipoUsuario, Long lEquipo) {
-        //oAuthService.OnlyAdmins();
+        oAuthService.OnlyAdmins();
         ValidationHelper.validateRPP(oPageable.getPageSize());
         if(lTipoUsuario == null){
             if(lEquipo == null){
