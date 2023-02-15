@@ -124,7 +124,7 @@ public class EquipoService {
         if (strFilter == null || strFilter.isEmpty() || strFilter.trim().isEmpty()) {
             oPage = oEquipoRepository.findAll(oPageable);
         } else {
-            oPage = oEquipoRepository.findByNombre(strFilter, oPageable);
+            oPage = oEquipoRepository.findByNombreIgnoreCaseContaining(strFilter, oPageable);
         }
 
         return oPage;

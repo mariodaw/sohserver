@@ -1,11 +1,16 @@
 
 COSAS QUE HACER (SPOILER MUCHAS):
 
-Boton de vuelta en view, edit y new (BOTON NO REMOVE o BOTON GENERATES)
-Mejorar footer
-Login logout mover a la derecha
+COSAS QUE AGREGAR!!!
 
-<!--  <div class="container">
+
+----------------------------
+
+Cosas que agregar...
+Boton usuarios del equipo
+Equiposervice filterignorecase mata mi pryecto
+
+<!--<div class="container">
   <div class="row">
     <div class="col">
       <h1>Component home(R)!!</h1>
@@ -16,7 +21,7 @@ Login logout mover a la derecha
       Con la doble llave: {{nombre}}
       <h2>Ejemplo de uso de atributo o propiedad en una imagen: (urlimagen es una variable del control)</h2>
       <div>
-        <img [src]="urlimagen" alt="homer" width="400" />
+        <img [src]="urlimagen" alt="homer" width="400"/>
       </div>
       <h2>Cambio de clase en un botón:</h2>
       <button [class]="claseboton">{{nombre}}</button>

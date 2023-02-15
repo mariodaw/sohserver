@@ -163,7 +163,7 @@ public class UsuarioService {
         return oUserEntity;
     } 
 
-    public Page<UsuarioEntity> getPage(Pageable oPageable, String strFilter, Long lTipoUsuario, Long lEquipo) {
+/*     public Page<UsuarioEntity> getPage(Pageable oPageable, String strFilter, Long lTipoUsuario, Long lEquipo) {
         oAuthService.OnlyAdmins();
         ValidationHelper.validateRPP(oPageable.getPageSize());
         if(lTipoUsuario == null){
@@ -179,6 +179,35 @@ public class UsuarioService {
                 }
             }
             return oUsuarioRepository.findByTipousuarioId(lTipoUsuario, oPageable);
+        } else {
+            if(lTipoUsuario || )
+            return oUsuarioRepository.findByNombre(strFilter, oPageable);
         }
-    }
+
+    } */
+     public Page<UsuarioEntity> getPage(Pageable oPageable, String strFilter, Long id_tipoUsuario, Long id_usuario, Long id_equipo){
+        //oAuthService.OnlyAdmins();
+
+        ValidationHelper.validateRPP(oPageable.getPageSize());
+        Page<UsuarioEntity> oPage = null;
+
+        if (id_usuario == null && id_tipoUsuario == null && id_equipo == null) {
+            if (strFilter == null  || strFilter.isEmpty() || strFilter.trim().isEmpty()) {
+                oPage = oUsuarioRepository.findAll(oPageable);
+                System.out.println(strFilter);
+            } else {
+                oPage = oUsuarioRepository.findByNombreIgnoreCaseContaining(strFilter, oPageable);
+            }
+        } else if (id_usuario == null && id_equipo == null) {
+            oPage = oUsuarioRepository.findByTipousuarioId(id_tipoUsuario, oPageable);
+        } else if (id_tipoUsuario == null && id_usuario == null) {
+            oPage = oUsuarioRepository.findByEquipoId(id_equipo, oPageable);
+        } else if (id_usuario == null) {
+            oPage = oUsuarioRepository.findByEquipoAndTipousuario(oPageable, id_equipo, id_tipoUsuario);
+        } else {
+            oPage = oUsuarioRepository.findByEquipoAndTipousuario(oPageable, id_equipo, id_tipoUsuario);
+        }
+
+        return  oPage ;
+    } 
 }   

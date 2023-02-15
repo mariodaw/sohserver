@@ -57,8 +57,7 @@ public class EquipoController {
     @GetMapping("")
     public ResponseEntity<Page<EquipoEntity>> getPage(
             @ParameterObject @PageableDefault(page = 0, size = 10, direction = Sort.Direction.DESC) Pageable oPageable,
-            @RequestParam(name = "filter", required = false) String strFilter,
-            @RequestParam(name = "tipoEquipo", required = false) Long lTipoEquipo) {
+            @RequestParam(name = "filter", required = false) String strFilter) {
         return new ResponseEntity<Page<EquipoEntity>>(oEquipoService.getPage(oPageable, strFilter), HttpStatus.OK);
     }
 
