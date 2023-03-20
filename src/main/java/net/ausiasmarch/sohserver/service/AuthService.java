@@ -36,7 +36,7 @@ public class AuthService {
                 System.out.println(oUsuarioEntity);
                 return JwtHelper.generateJWT(oUsuarioBean.getUsername(), oUsuarioEntity.getTipousuario().getId());
             } else {
-                throw new UnauthorizedException("email or password incorrect");
+                throw new UnauthorizedException("username or password incorrect");
             }
         } else {
             throw new UnauthorizedException("wrong password");

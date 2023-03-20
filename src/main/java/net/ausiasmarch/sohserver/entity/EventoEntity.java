@@ -26,11 +26,10 @@ public class EventoEntity {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date fini;
     private String hora;
+    private String premio;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_tipoevento")
     private TipoEventoEntity tipoevento;
-
-    
 
     public Long getId() {
         return id;
@@ -38,7 +37,7 @@ public class EventoEntity {
 
     public void setId(Long id) {
         this.id = id;
-    }   
+    }
 
     public String getNombre() {
         return nombre;
@@ -62,6 +61,14 @@ public class EventoEntity {
 
     public void setHora(String hora) {
         this.hora = hora;
+    }
+
+    public String getPremio() {
+        return premio;
+    }
+
+    public void setPremio(String premio) {
+        this.premio = premio;
     }
 
     public TipoEventoEntity getTipoevento() {

@@ -34,6 +34,7 @@ public class EventoService {
     private final List<String> NOMBRES = List.of("Jornada 1", "Jornada 2","Jornada 3","Jornada 4","Jornada 5","Amistoso 1",
     "Amistoso 2","Amistoso 3","Amistoso 4","Amistoso 5");
     private final List<String> HORAS = List.of("17:30","18:30","19:30","20:30","21:30","22:30","23:30","00:30");
+    private final List<String> PREMIOS = List.of("20€","30€", "40€");
     public EventoEntity get(Long id) {
         //oAuthService.OnlyAdmins();
         return oEventoRepository.findById(id)
@@ -80,6 +81,7 @@ public class EventoService {
         oEventoEntity.setNombre(oUpdatedEventoEntity.getNombre());
         oEventoEntity.setFini(oUpdatedEventoEntity.getFini());
         oEventoEntity.setHora(oUpdatedEventoEntity.getHora());
+        oEventoEntity.setPremio(oUpdatedEventoEntity.getPremio());
         oEventoEntity.setTipoevento(oUpdatedEventoEntity.getTipoevento());
         return oEventoRepository.save(oEventoEntity);
     }
@@ -119,6 +121,7 @@ public class EventoService {
         oEventoEntity.setNombre(NOMBRES.get(RandomHelper.getRandomInt(0, NOMBRES.size() - 1)));
         oEventoEntity.setFini(RandomHelper.getRadomDate());
         oEventoEntity.setHora(HORAS.get(RandomHelper.getRandomInt(0, HORAS.size() - 1)));
+        oEventoEntity.setPremio(PREMIOS.get(RandomHelper.getRandomInt(0, PREMIOS.size()-1)));
         if (RandomHelper.getRandomInt(0, 10) > 1) {
             oEventoEntity.setTipoevento(oTipoEventoRepository.getById(TipoEventoHelper.AMISTOSO));
         } else {

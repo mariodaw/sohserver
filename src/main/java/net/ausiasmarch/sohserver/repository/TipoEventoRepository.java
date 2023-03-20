@@ -8,5 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 public interface TipoEventoRepository extends JpaRepository<TipoEventoEntity, Long>{
-    
+ 
+    public Page<TipoEventoEntity> findByNombreIgnoreCaseContaining(String strFilter, Pageable oPageable);
 }
